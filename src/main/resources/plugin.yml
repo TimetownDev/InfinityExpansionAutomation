@@ -1,0 +1,6 @@
+name: InfinityExpansionAutomation
+version: '${project.version}'
+main: me.ddggdd135.infinityexpansionautomation.InfinityExpansionAutomation
+api-version: '1.16'
+depend: [Slimefun, InfinityExpansion, GuguSlimefunLib]
+authors: [JWJUN233233]
