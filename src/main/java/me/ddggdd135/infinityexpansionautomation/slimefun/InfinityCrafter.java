@@ -92,14 +92,20 @@ public class InfinityCrafter extends TicingBlock
                 if (blockMenu == null) return;
 
                 for (int slot : inputSlots) {
-                    block.getWorld().dropItemNaturally(block.getLocation(), blockMenu.getItemInSlot(slot));
+                    ItemStack itemStack = blockMenu.getItemInSlot(slot);
+                    if (itemStack != null && !itemStack.getType().isAir())
+                        block.getWorld().dropItemNaturally(block.getLocation(), itemStack);
                 }
 
                 for (int slot : outputSlot) {
-                    block.getWorld().dropItemNaturally(block.getLocation(), blockMenu.getItemInSlot(slot));
+                    ItemStack itemStack = blockMenu.getItemInSlot(slot);
+                    if (itemStack != null && !itemStack.getType().isAir())
+                        block.getWorld().dropItemNaturally(block.getLocation(), itemStack);
                 }
 
-                block.getWorld().dropItemNaturally(block.getLocation(), blockMenu.getItemInSlot(targetSlot));
+                ItemStack itemStack = blockMenu.getItemInSlot(targetSlot);
+                if (itemStack != null && !itemStack.getType().isAir())
+                    block.getWorld().dropItemNaturally(block.getLocation(), itemStack);
             }
         });
     }
