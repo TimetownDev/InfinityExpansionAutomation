@@ -18,7 +18,7 @@ import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import java.util.List;
 import javax.annotation.Nonnull;
 import me.ddggdd135.guguslimefunlib.api.ItemHashMap;
-import me.ddggdd135.guguslimefunlib.api.abstracts.TicingBlock;
+import me.ddggdd135.guguslimefunlib.api.abstracts.TickingBlock;
 import me.ddggdd135.guguslimefunlib.api.interfaces.InventoryBlock;
 import me.ddggdd135.guguslimefunlib.items.AdvancedCustomItemStack;
 import me.ddggdd135.guguslimefunlib.utils.ItemUtils;
@@ -35,7 +35,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class InfinityCrafter extends TicingBlock
+public class InfinityCrafter extends TickingBlock
         implements InventoryBlock, EnergyNetComponent, MachineProcessHolder<CraftingOperation> {
     private static final ItemStack TARGET_SLOT =
             new SlimefunItemStack("_UI_TARGET_SLOT", Material.RED_STAINED_GLASS_PANE, "&c目标输入槽");
@@ -68,21 +68,9 @@ public class InfinityCrafter extends TicingBlock
                 BlockMenu blockMenu = StorageCacheUtils.getMenu(e.getBlock().getLocation());
                 if (blockMenu == null) return;
 
-                for (int slot : inputSlots) {
-                    e.getBlock()
-                            .getWorld()
-                            .dropItemNaturally(e.getBlock().getLocation(), blockMenu.getItemInSlot(slot));
-                }
-
-                for (int slot : outputSlot) {
-                    e.getBlock()
-                            .getWorld()
-                            .dropItemNaturally(e.getBlock().getLocation(), blockMenu.getItemInSlot(slot));
-                }
-
-                e.getBlock()
-                        .getWorld()
-                        .dropItemNaturally(e.getBlock().getLocation(), blockMenu.getItemInSlot(targetSlot));
+                blockMenu.dropItems(e.getBlock().getLocation(), getInputSlots());
+                blockMenu.dropItems(e.getBlock().getLocation(), getOutputSlots());
+                blockMenu.dropItems(e.getBlock().getLocation(), targetSlot);
             }
 
             @Override
